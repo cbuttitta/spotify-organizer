@@ -12,3 +12,11 @@ C:\Users\Caseb\OneDrive\Desktop\ITSC3112_Project\MyCSharpApp\obj\Debug\net9.0\re
 C:\Users\Caseb\OneDrive\Desktop\ITSC3112_Project\MyCSharpApp\obj\Debug\net9.0\MyCSharpApp.pdb
 C:\Users\Caseb\OneDrive\Desktop\ITSC3112_Project\MyCSharpApp\obj\Debug\net9.0\MyCSharpApp.genruntimeconfig.cache
 C:\Users\Caseb\OneDrive\Desktop\ITSC3112_Project\MyCSharpApp\obj\Debug\net9.0\ref\MyCSharpApp.dll
+C:\Users\Caseb\OneDrive\Desktop\ITSC3112_Project\MyCSharpApp\obj\Debug\net9.0\MyCSharpApp.csproj.AssemblyReference.cache
+C:\Users\Caseb\OneDrive\Desktop\ITSC3112_Project\MyCSharpApp\obj\Debug\net9.0\MyCSharpApp.sourcelink.json
+C:\Users\Caseb\OneDrive\Desktop\ITSC3112_Project\MyCSharpApp\bin\Debug\net9.0\DotNetEnv.dll
+C:\Users\Caseb\OneDrive\Desktop\ITSC3112_Project\MyCSharpApp\bin\Debug\net9.0\Microsoft.Extensions.Configuration.dll
+C:\Users\Caseb\OneDrive\Desktop\ITSC3112_Project\MyCSharpApp\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Caseb\OneDrive\Desktop\ITSC3112_Project\MyCSharpApp\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
+C:\Users\Caseb\OneDrive\Desktop\ITSC3112_Project\MyCSharpApp\bin\Debug\net9.0\Sprache.dll
+C:\Users\Caseb\OneDrive\Desktop\ITSC3112_Project\MyCSharpApp\obj\Debug\net9.0\MyCSharp.5D3FA773.Up2Date
