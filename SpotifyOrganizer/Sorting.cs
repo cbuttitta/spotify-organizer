@@ -1,8 +1,34 @@
 namespace SpotifyOrganizer
 {
-    public class Sorter()
+    public class Sorter(Song[] song_list)
     {
+        Dictionary<string, List<string>> genre_dict = new Dictionary<string, List<string>>();
+        public void SortGenre()
+        {
+            foreach (Song song in song_list)
+            {
+                var genre = song.Genre;
+                Console.WriteLine(genre);
+                if (genre_dict.ContainsKey(genre))
+                {
+                    genre_dict[genre].Add(song.Id);
+                }
+                else
+                {
+                    genre_dict.Add(genre, new List<string> { song.Id });
+                }
 
+            }
+
+        }
+        public void PrintGenre()
+        {
+            foreach (KeyValuePair<string, List<string>> pair in genre_dict)
+            {
+                string songs = string.Join(", ", pair.Value); // join the list into a string
+                Console.WriteLine($"{pair.Key}: IDs: {songs}");
+            }
+        }
     }
 }
 

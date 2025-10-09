@@ -1,15 +1,17 @@
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.NetworkInformation;
 using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SpotifyOrganizer
 {
+   
     public class Profile
     {
         private static readonly HttpClient _httpClient = new HttpClient(); //static and reusable across instances
-        public static async Task<string> DisplayProfileName(string token)
+        public static async Task<string> GetProfileInfo(string token)
         {
             _httpClient.DefaultRequestHeaders.Clear(); //clear any existing headers
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
@@ -21,6 +23,11 @@ namespace SpotifyOrganizer
                 response.EnsureSuccessStatusCode(); // Throw if not a success code
 
                 string responseBody = await response.Content.ReadAsStringAsync();
+                if (string.IsNullOrEmpty(responseBody))
+                {
+                    Console.WriteLine("response was empty");
+                    return "";
+                }
                 return responseBody;
             }
             catch (HttpRequestException e)

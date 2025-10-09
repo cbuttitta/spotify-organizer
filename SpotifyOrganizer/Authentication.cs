@@ -31,7 +31,7 @@ namespace SpotifyOrganizer
             HttpListenerContext context = listener.GetContext();
 
             // Send response
-            string responseString = "<html><body>You can close this window now.</body></html>";
+            string responseString = "<html><body>Authentication success. You can close this window now.</body></html>";
             byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
             context.Response.ContentLength64 = buffer.Length;
             context.Response.OutputStream.Write(buffer, 0, buffer.Length);
@@ -94,7 +94,7 @@ namespace SpotifyOrganizer
 
                 //get the JSON reponse and print it for debugging
                 string responseString = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("Token response: " + responseString);
+                //Console.WriteLine("Token response: " + responseString);
 
                 //parse the JSON and grab the root for further parsing of values
                 using var jsonDoc = System.Text.Json.JsonDocument.Parse(responseString);
