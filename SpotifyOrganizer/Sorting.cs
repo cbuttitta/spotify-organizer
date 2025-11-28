@@ -53,6 +53,9 @@ namespace SpotifyOrganizer
 * 6. then pretty print proposed playlists to user and ask if they would like to go forward with the operation
 * 7. if not, abort program. if yes, create playlists named after genre and populate with all the tracks in the list
 * 
+* TODO:
+* Reduce duplicates of same song in different playlists
+* Possibly reduce number of niche genres having only one song
 * 
 * 
 *

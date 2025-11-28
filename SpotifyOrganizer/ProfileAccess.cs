@@ -4,37 +4,41 @@ using System.Net.Http.Headers;
 using System.Net.NetworkInformation;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic;
 
 namespace SpotifyOrganizer
 {
-   
+
     public class Profile
     {
         private static readonly HttpClient _httpClient = new HttpClient(); //static and reusable across instances
-        public static async Task<string> GetProfileInfo(string token)
+        public static async Task<T?> GetSpotifyDataAsync<T>(string url, string accessToken)
         {
-            _httpClient.DefaultRequestHeaders.Clear(); //clear any existing headers
-            _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
-            _httpClient.DefaultRequestHeaders.Add("User-Agent", "MyApp/1.0");
-            try
-            {
-                HttpResponseMessage response = await _httpClient.GetAsync("https://api.spotify.com/v1/me");
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
 
-                response.EnsureSuccessStatusCode(); // Throw if not a success code
+            var response = await client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
 
-                string responseBody = await response.Content.ReadAsStringAsync();
-                if (string.IsNullOrEmpty(responseBody))
-                {
-                    Console.WriteLine("response was empty");
-                    return "";
-                }
-                return responseBody;
-            }
-            catch (HttpRequestException e)
-            {
-                Console.WriteLine($"Request error: {e.Message}");
-                return "";
-            }
+            string json = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<T>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        }
+
+
+
+
+        public static async Task<T?> PostSpotifyDataAsync<T>(string url, string accessToken)
+        {
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+
+            var response = await client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+
+            string json = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<T>(json);
         }
     }
 }

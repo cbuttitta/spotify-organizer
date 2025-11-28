@@ -25,7 +25,6 @@ namespace SpotifyOrganizer
             //Start the listener
             listener.Start();
 
-            Console.WriteLine("Waiting for Spotify authorization...");
 
             // Wait for the incoming request (blocks thread until request is received)
             HttpListenerContext context = listener.GetContext();

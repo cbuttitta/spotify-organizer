@@ -36,10 +36,11 @@ namespace SpotifyOrganizer
 
         static async Task Main(string[] args)
         {
-            SongsToSort();
-            var profileData = await SetUp.Orchestrate();
+            //SongsToSort();
+            var (profileData, playlistData) = await SetUp.Orchestrate();
             string name = profileData.DisplayName ?? "Unknown User";
             Console.WriteLine($"Hi {name}");
+            //Console.WriteLine("Your Playlists: ");
             return;
         }
     }
