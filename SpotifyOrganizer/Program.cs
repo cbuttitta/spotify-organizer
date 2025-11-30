@@ -22,7 +22,7 @@ namespace SpotifyOrganizer
     }
     class Program
     {
-        static void SongsToSort()
+        /*static void SongsToSort()
         {
             string[] genres = { "pop", "rnb", "rock", "jazz", "classical", "rap", "country", "hip-hop" };
 
@@ -32,7 +32,7 @@ namespace SpotifyOrganizer
             Sorter sorter = new Sorter(songs);
             sorter.SortGenre();
             sorter.PrintGenre();
-        }
+        }*/
 
         static async Task Main(string[] args)
         {
