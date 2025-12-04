@@ -1,24 +1,26 @@
-﻿using System.Threading.Tasks;
-using DotNetEnv;
-using System.Security.Cryptography.X509Certificates;
-using System.Reflection.Metadata;
-using System.Text.Json;
-
-
+﻿// Program.cs
+using System;
+using System.Threading.Tasks;
+using SpotifyOrganizer.Core;
 
 namespace SpotifyOrganizer
 {
     class Program
     {
-
         static async Task Main(string[] args)
         {
-            var (profileData, playlistData) = await SetUp.Orchestrate();
-            string name = profileData.DisplayName ?? "Unknown User";
-            Console.WriteLine($"Hi {name}");
-            //Console.WriteLine("Your Playlists: ");
-            return;
+            try
+            {
+                var env = EnvironmentConfig.Load("api.env");
+                var runner = new WorkflowRunner(env);
+                await runner.RunAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Unhandled error: " + e.Message);
+                Console.WriteLine(e.ToString());
+                Environment.Exit(1);
+            }
         }
     }
 }
-
