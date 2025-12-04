@@ -1,7 +1,4 @@
-﻿// Program.cs
-using System;
-using System.Threading.Tasks;
-using SpotifyOrganizer.Core;
+﻿using SpotifyOrganizer.Core;
 
 namespace SpotifyOrganizer
 {
@@ -12,7 +9,7 @@ namespace SpotifyOrganizer
             try
             {
                 var env = EnvironmentConfig.Load("api.env");
-                var runner = new WorkflowRunner(env);
+                var runner = new Orchestrator(env);
                 await runner.RunAsync();
             }
             catch (Exception e)

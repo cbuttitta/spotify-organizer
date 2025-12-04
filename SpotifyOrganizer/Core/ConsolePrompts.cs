@@ -1,6 +1,3 @@
-// Core/ConsolePrompts.cs
-using System;
-
 namespace SpotifyOrganizer.Core
 {
     public static class ConsolePrompts

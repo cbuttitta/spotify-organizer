@@ -1,10 +1,4 @@
-// Api/PlaylistService.cs
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using System.Text.Json;
-using System.Threading.Tasks;
 using SpotifyOrganizer.Models;
 
 namespace SpotifyOrganizer.Api
@@ -19,11 +13,11 @@ namespace SpotifyOrganizer.Api
             string? next = $"https://api.spotify.com/v1/users/{userId}/playlists?limit=50";
             while (!string.IsNullOrEmpty(next))
             {
-                var resp = await _api.SendAsync(new HttpRequestMessage(HttpMethod.Get, next));
-                var json = await resp.Content.ReadAsStringAsync();
+                var res = await _api.SendAsync(new HttpRequestMessage(HttpMethod.Get, next));
+                var json = await res.Content.ReadAsStringAsync();
                 using var doc = JsonDocument.Parse(json);
                 var items = doc.RootElement.GetProperty("items");
-                foreach (var item in items.EnumerateArray())
+                foreach (var item in items.EnumerateArray()) //iterate over json items
                 {
                     var name = item.GetProperty("name").GetString() ?? "";
                     if (string.Equals(name, playlistName, StringComparison.OrdinalIgnoreCase))
@@ -31,8 +25,8 @@ namespace SpotifyOrganizer.Api
                         return item.GetProperty("id").GetString();
                     }
                 }
-                var nextEl = doc.RootElement.GetProperty("next");
-                next = nextEl.ValueKind == JsonValueKind.Null ? null : nextEl.GetString();
+                var nextElement = doc.RootElement.GetProperty("next");
+                next = nextElement.ValueKind == JsonValueKind.Null ? null : nextElement.GetString();
             }
             return null;
         }

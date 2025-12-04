@@ -1,5 +1,3 @@
-// Core/EnvironmentConfig.cs
-using System;
 using DotNetEnv;
 
 namespace SpotifyOrganizer.Core

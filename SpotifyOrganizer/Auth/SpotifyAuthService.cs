@@ -1,9 +1,4 @@
-// Auth/SpotifyAuthService.cs
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace SpotifyOrganizer.Auth
 {
@@ -58,14 +53,11 @@ namespace SpotifyOrganizer.Auth
 
             string? accessToken = root.GetProperty("access_token").GetString();
             string? refreshToken = root.GetProperty("refresh_token").GetString();
-            int expiresIn = root.TryGetProperty("expires_in", out var eiEl) && eiEl.ValueKind == System.Text.Json.JsonValueKind.Number
-                ? eiEl.GetInt32()
-                : 0;
 
             if (accessToken == null)
                 throw new InvalidOperationException("Access token missing from token response.");
 
-            return new TokenResult { AccessToken = accessToken, RefreshToken = refreshToken ?? "", ExpiresIn = expiresIn };
+            return new TokenResult { AccessToken = accessToken, RefreshToken = refreshToken ?? ""};
         }
     }
 }

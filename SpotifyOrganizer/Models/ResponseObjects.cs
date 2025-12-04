@@ -1,5 +1,3 @@
-// Models/ResponseObjects.cs
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace SpotifyOrganizer.Models

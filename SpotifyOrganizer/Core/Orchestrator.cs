@@ -1,18 +1,11 @@
-// Core/WorkflowRunner.cs
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 using SpotifyOrganizer.Api;
 using SpotifyOrganizer.Auth;
-using SpotifyOrganizer.Core;
 using SpotifyOrganizer.Models;
 using SpotifyOrganizer.Utils;
 
 namespace SpotifyOrganizer.Core
 {
-    public class WorkflowRunner
+    public class Orchestrator
     {
         private readonly EnvironmentConfig _env;
         private readonly HttpClient _sharedHttp;
@@ -23,9 +16,9 @@ namespace SpotifyOrganizer.Core
         private readonly GenreService _genreService;
 
         // internal storage for parsing playlists into genre buckets
-        private readonly Dictionary<string, List<(string id, string name)>> _genres = new();
+        private readonly Dictionary<string, List<(string id, string name)>> _genres = new Dictionary<string, List<(string id, string name)>>();
 
-        public WorkflowRunner(EnvironmentConfig env)
+        public Orchestrator(EnvironmentConfig env)
         {
             _env = env;
             _sharedHttp = new HttpClient();
@@ -65,11 +58,11 @@ namespace SpotifyOrganizer.Core
 
             // prompt for skips
             Console.WriteLine("Which playlists to skip? (separate by commas), if none type N: ");
-            string toSkip = Console.ReadLine() ?? "N";
-            var skipSet = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            if (!string.Equals(toSkip.Trim(), "N", StringComparison.OrdinalIgnoreCase))
+            string tracksToSkip = Console.ReadLine() ?? "N";
+            var skipSet = new HashSet<string>(StringComparer.OrdinalIgnoreCase); //reduce duplicates
+            if (!string.Equals(tracksToSkip.Trim().ToUpper(), "N"))
             {
-                foreach (var s in toSkip.Split(',').Select(x => x.Trim())) skipSet.Add(s);
+                foreach (var s in tracksToSkip.Split(',').Select(x => x.Trim())) skipSet.Add(s);
             }
 
             // parse playlists -> genres
@@ -88,31 +81,22 @@ namespace SpotifyOrganizer.Core
 
                 foreach (var item in tracksData.Items)
                 {
-                    var t = item.Track;
-                    if (t == null) continue;
-                    string genre = (await _genreService.GetTrackGenreCachedAsync(t)).ToLowerInvariant();
+                    var trackObject = item.Track;
+                    if (trackObject == null) continue;
+                    string genre = (await _genreService.GetTrackGenreAsync(trackObject)).ToLowerInvariant();
                     if (!_genres.TryGetValue(genre, out var list))
                     {
                         list = new List<(string, string)>();
                         _genres[genre] = list;
                     }
-                    _genres[genre].Add((t.Id, t.Name));
+                    _genres[genre].Add((trackObject.Id, trackObject.Name));
                 }
             }
 
             ProgressBar.Draw(total, total);
-            Console.WriteLine("\n✅ Parsing complete!");
+            Console.WriteLine("\n Parsing complete!");
             Console.WriteLine($"Number of genres found: {_genres.Count}");
 
-            // display summary (first 10 per genre)
-            foreach (var pair in _genres)
-            {
-                Console.WriteLine($"Genre: {pair.Key} - {pair.Value.Count} tracks (showing up to 10):");
-                foreach (var (id, name) in pair.Value.Take(10))
-                {
-                    Console.WriteLine($"   - {name} [{id}]");
-                }
-            }
 
             // publish playlists
             foreach (var pair in _genres)
@@ -121,12 +105,12 @@ namespace SpotifyOrganizer.Core
                 string? existingId = await _playlistService.FindExistingPlaylistIdAsync(profile.Id, playlistName);
                 if (existingId != null)
                 {
-                    Console.WriteLine($"🔄 Updating existing playlist: {playlistName}");
+                    Console.WriteLine($"Updating existing playlist: {playlistName}");
                     await _playlistService.ClearPlaylistAsync(existingId);
                 }
                 else
                 {
-                    Console.WriteLine($"🎧 Creating new playlist: {playlistName}");
+                    Console.WriteLine($"Creating new playlist: {playlistName}");
                     existingId = await _playlistService.CreatePlaylistAsync(profile.Id, playlistName, $"Auto-generated playlist for genre: {pair.Key}");
                 }
 
@@ -136,7 +120,7 @@ namespace SpotifyOrganizer.Core
                     await _playlistService.AddTracksInChunksAsync(existingId, uris);
                 }
 
-                Console.WriteLine($"🎉 Playlist ready: {playlistName} ({uris.Count} tracks)");
+                Console.WriteLine($"Playlist ready: {playlistName} ({uris.Count} tracks)");
             }
         }
     }
