@@ -1,1 +1,1 @@
-Organizes Spotify plyalists in to separate playlists by track genre using the Spotify Web API.
+Organizes Spotify playlists in to separate playlists by track genre using the Spotify Web API.
