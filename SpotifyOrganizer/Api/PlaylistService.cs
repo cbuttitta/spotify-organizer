@@ -46,7 +46,7 @@ namespace SpotifyOrganizer.Api
             await _api.SendAsync(req);
         }
 
-        public async Task AddTracksInChunksAsync(string playlistId, List<string> uris)
+        public async Task AddTracksInChunksAsync(string playlistId, List<string> uris) //more efficient way of adding songs
         {
             const int chunkSize = 100;
             for (int i = 0; i < uris.Count; i += chunkSize)

@@ -17,7 +17,7 @@ namespace SpotifyOrganizer.Api
             foreach (var artist in track.Artists)
             {
                 //check if genre already associated with this artist
-                if (_artistGenre.TryGetValue(artist.Id, out var genreFound)) //passes value found to variable genreFound
+                if (_artistGenre.TryGetValue(artist.Id, out var genreFound)) //passes value found out to variable genreFound
                 {
                     return genreFound;
                 }

@@ -34,8 +34,9 @@ namespace SpotifyOrganizer.Core
             string state = Guid.NewGuid().ToString("N");
             string url = _authService.GenerateAuthUrl(state);
 
-            bool allowed = ConsolePrompts.AskYesNo("Do we have permission to access your Spotify profile?", false);
-            if (!allowed) Environment.Exit(1);
+            Console.WriteLine("Do we have permission to access your Spotify profile?");
+            var permission = Console.ReadLine() ?? "N";
+            if (!string.Equals(permission.Trim().ToUpper(), "Y")) Environment.Exit(1);
 
             Console.WriteLine("Open this URL in your browser to authenticate:");
             Console.WriteLine(url);

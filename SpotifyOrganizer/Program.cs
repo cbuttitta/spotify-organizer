@@ -8,9 +8,9 @@ namespace SpotifyOrganizer
         {
             try
             {
-                var env = EnvironmentConfig.Load("api.env");
-                var runner = new Orchestrator(env);
-                await runner.RunAsync();
+                var env = EnvironmentConfig.Load("api.env"); //gte environemnt variables
+                var runner = new Orchestrator(env); //instantiate the orchestration class that ties all the service classes togethr to do what the program does
+                await runner.RunAsync(); //run the orchestration class
             }
             catch (Exception e)
             {
