@@ -1,6 +1,3 @@
-using System.Net.Http.Headers;
-using System.Text.Json;
-
 namespace SpotifyOrganizer.Api
 {
     public class SpotifyApiClient

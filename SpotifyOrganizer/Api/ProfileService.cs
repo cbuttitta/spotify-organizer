@@ -1,5 +1,3 @@
-using SpotifyOrganizer.Models;
-
 namespace SpotifyOrganizer.Api
 {
     public class ProfileService

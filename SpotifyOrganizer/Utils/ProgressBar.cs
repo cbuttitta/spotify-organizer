@@ -1,6 +1,3 @@
-// Utils/ProgressBar.cs
-using System;
-
 namespace SpotifyOrganizer.Utils
 {
     public static class ProgressBar

@@ -1,6 +1,3 @@
-using System.Text.Json;
-using SpotifyOrganizer.Models;
-
 namespace SpotifyOrganizer.Api
 {
     public class PlaylistService
