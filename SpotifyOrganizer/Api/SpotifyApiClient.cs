@@ -31,7 +31,7 @@ namespace SpotifyOrganizer.Api
             var content = new StringContent(jsonBody, System.Text.Encoding.UTF8, "application/json");
             var resp = await _http.PostAsync(url, content);
             var text = await resp.Content.ReadAsStringAsync();
-            resp.EnsureSuccessStatusCode();
+            resp.EnsureSuccessStatusCode(); //throw exception if resposne is anything but 200
             return text;
         }
 
