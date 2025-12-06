@@ -1,3 +1,10 @@
+using SpotifyOrganizer.Models.Profile;
+using SpotifyOrganizer.Api;
+using SpotifyOrganizer.Auth;
+using SpotifyOrganizer.Models.Playlists;
+using SpotifyOrganizer.Utils;
+
+
 namespace SpotifyOrganizer.Core
 {
     public class Orchestrator

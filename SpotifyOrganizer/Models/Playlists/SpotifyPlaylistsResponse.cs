@@ -4,6 +4,6 @@ namespace SpotifyOrganizer.Models.Playlists
 {
     public class SpotifyPlaylistsResponse
     {
-        [JsonPropertyName("items")] public List<Playlist> Items { get; set; }
+        [JsonPropertyName("items")] public List<Playlist>? Items { get; set; }
     }
 }

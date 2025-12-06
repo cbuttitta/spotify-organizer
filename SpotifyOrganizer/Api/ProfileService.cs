@@ -1,3 +1,6 @@
+using SpotifyOrganizer.Models.Profile;
+using System.Text.Json.Serialization;
+
 namespace SpotifyOrganizer.Api
 {
     public class ProfileService

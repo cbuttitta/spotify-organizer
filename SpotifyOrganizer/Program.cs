@@ -1,4 +1,5 @@
-﻿namespace SpotifyOrganizer
+﻿using SpotifyOrganizer.Core;
+namespace SpotifyOrganizer
 {
     class Program
     {

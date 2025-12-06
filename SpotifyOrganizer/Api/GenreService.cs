@@ -1,4 +1,5 @@
-using SpotifyOrganizer.Models;
+using SpotifyOrganizer.Models.Playlists;
+using SpotifyOrganizer.Models.Artists;
 
 namespace SpotifyOrganizer.Api
 {

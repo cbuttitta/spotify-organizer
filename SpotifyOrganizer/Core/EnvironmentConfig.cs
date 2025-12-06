@@ -1,3 +1,5 @@
+using DotNetEnv;
+
 namespace SpotifyOrganizer.Core
 {
     public class EnvironmentConfig

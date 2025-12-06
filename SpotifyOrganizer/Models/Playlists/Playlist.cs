@@ -5,9 +5,9 @@ namespace SpotifyOrganizer.Models.Playlists
 {
     public class Playlist
     {
-        [JsonPropertyName("name")] public string Name { get; set; }
-        [JsonPropertyName("id")] public string Id { get; set; }
-        [JsonPropertyName("tracks")] public PlaylistTracks Tracks { get; set; }
-        [JsonPropertyName("external_urls")] public ExternalUrls ExternalUrls { get; set; }
+        [JsonPropertyName("name")] public string? Name { get; set; }
+        [JsonPropertyName("id")] public string? Id { get; set; }
+        [JsonPropertyName("tracks")] public PlaylistTracks? Tracks { get; set; }
+        [JsonPropertyName("external_urls")] public ExternalUrls? ExternalUrls { get; set; }
     }
 }
