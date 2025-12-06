@@ -1,129 +1,101 @@
-🎵 Spotify Organizer
+# SpotifyOrganizer
 
-A tool to categorize, analyze, and organize Spotify tracks using genre data and your own workflows.
+SpotifyOrganizer is a C#/.NET console application that connects to the Spotify Web API and retrieves data about the authenticated user — including their profile, playlists, tracks, and more. The data is organized into strongly typed classes and can be used for reporting, exporting, analytics, or future automation features.
 
-📘 Overview
+The project uses `System.Text.Json` for deserialization and `HttpClient` for communicating with Spotify’s REST API.
 
-Spotify Organizer is a C#/.NET application that connects to the Spotify Web API to fetch track, artist, and genre information. It provides utility classes and workflows to:
+---
 
-Retrieve Spotify data using authenticated API calls
+## Features
 
-Determine track genres based on associated artists
+- 🔐 Authenticate with Spotify using an OAuth token  
+- 👤 Retrieve detailed Spotify user profile information  
+- 🎵 Fetch playlists, tracks, artists, and metadata  
+- 📦 Organize Spotify API responses into clean C# models  
+- 🛠 Demonstrates API consumption with `HttpClient` and async/await  
+- 🧩 Easily extensible for playlist sorting, exporting, or bulk management
 
-Cache artist genre data to reduce API calls
+---
 
-Run custom workflows across playlists, albums, or track groups
+## Requirements
 
-Organize musical content into structured output
+- .NET 6.0 or later  
+- A Spotify Developer account  
+- A Spotify OAuth **Access Token** with the required scopes  
+- Internet connection for API calls
 
-This project is structured around clean separation of concerns, strong typing, and extensible service classes.
+---
 
-🚀 Features
-🔹 API Layer
+## Getting Started
 
-SpotifyApiClient handles all authenticated requests
+### 1. Clone the repository
 
-Strong models for Spotify tracks, artists, and metadata
-
-Environment configuration loader (Client ID, Secret, Scopes, Redirect URI)
-
-🔹 Genre Classification
-
-GenreService fetches and caches artist genres
-
-Genre caching reduces redundant Spotify API calls
-
-Defaults to misc when genre cannot be found
-
-🔹 Workflow System
-
-Modular workflow runner
-
-Supports custom processing logic
-
-Extensible design for different output types
-
-🔹 Configuration
-
-Loads environment variables from api.env
-
-Validates presence of required credentials
-
-Easy to extend with additional config fields
-
-
-🔧 Setup & Installation
-1. Clone the repository
+```bash
 git clone https://github.com/yourusername/SpotifyOrganizer.git
 cd SpotifyOrganizer
 
-2. Install dependencies
+Open the Program.cs file and locate the envConfig function
 
-Ensure you have:
+var env = EnvironmentConfig.Load("api.env");
 
-.NET 8.0 or later
+and replace it with the location of your SpotifyAPI token
 
-A Spotify Developer account
+Running the Project
 
-A Spotify application (Client ID + Secret)
+From the project folder (where the .csproj file is located):
 
-3. Create an api.env file
-CLIENT_ID=yourClientId
-CLIENT_SECRET=yourSecret
-REDIRECT_URI=http://localhost:5000/callback
-SCOPE=user-library-read playlist-read-private
-
-4. Run the project
+dotnet build
 dotnet run
 
-🔑 Authentication Flow
 
-Spotify Organizer uses Spotify's OAuth 2.0 authorization code flow.
+The application will:
 
-Flow:
+Send a request to Spotify’s API
 
-Generate auth URL
+Deserialize the JSON response into your model classes
 
-Log in via Spotify
+Print the organized user data to the console
 
-Spotify redirects to your callback URL
+Project Structure
+SpotifyOrganizer/
+│
+├── Models/
+│   ├── ProfileObject.cs
+│   ├── Followers.cs
+│   ├── ImageObject.cs
+│   ├── ExternalUrls.cs
+│   └── (other Spotify response types)
+│
+├── Program.cs
+├── SpotifyOrganizer.csproj
+└── README.md
 
-OAuth code is exchanged for an access token
+How It Works
 
-All API requests use this token
+The program sends GET requests to endpoints like:
 
-Tokens refresh automatically as needed.
+https://api.spotify.com/v1/me
 
-🎼 How Genre Lookup Works
 
-For each track:
+It passes your OAuth access token in the Authorization header:
 
-Iterate through all its artists
+Authorization: Bearer <token>
 
-For each artist:
 
-Check in-memory cache for genre
+Spotify returns data in JSON format.
 
-If missing, fetch artist info from Spotify
+The app deserializes JSON into strongly typed C# classes.
 
-Extract first available genre
+Data is printed or used for analysis/organization.
 
-Store in cache
+Future Enhancements (Ideas)
 
-Return genre or "misc"
+📂 Export playlists or profile data to JSON/CSV
 
-Caching ensures minimal API calls during batch workflows.
+🔄 Auto-refresh OAuth tokens
 
-🧪 Extending the Project
+🧹 Sort or clean playlists automatically
 
-You can easily add:
+⭐ Track listening stats
 
-New organizational workflows
-
-Filtering systems (by decade, popularity, energy, danceability, genre groups)
-
-Batch playlist exporters
-
-File outputs (CSV, JSON, Markdown, etc.)
-
-Genre normalization mappings
+🗂 Build a UI dashboard for your library
